@@ -11,36 +11,36 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var requirements = ["react", "socketio", "clientView"];
 
 define(requirements, function (React, SocketIO, ClientView) {
-	var socketEndpoint = "/chat";
+    var socketEndpoint = "/chat";
 
-	return (function () {
-		function Client() {
-			_classCallCheck(this, Client);
+    return (function () {
+        function Client() {
+            _classCallCheck(this, Client);
 
-			this.setupPublicAndPrivates();
-		}
+            this.setupPublicAndPrivates();
+        }
 
-		_createClass(Client, [{
-			key: "setupPublicAndPrivates",
-			value: function setupPublicAndPrivates() {
-				var socket = SocketIO.connect(socketEndpoint);
+        _createClass(Client, [{
+            key: "setupPublicAndPrivates",
+            value: function setupPublicAndPrivates() {
+                var socket = SocketIO.connect(socketEndpoint);
 
-				socket.on("connect", function () {
-					console.log("connected");
-				});
+                socket.on("connect", function () {
+                    console.log("connected");
+                });
 
-				var handleMessageSubmit = function handleMessageSubmit(message) {
-					console.log(message);
-					socket.emit("chat", { data: message });
-				};
-			}
-		}, {
-			key: "appendTo",
-			value: function appendTo(container) {
-				React.render(React.createElement(ClientView, null), container);
-			}
-		}]);
+                var handleMessageSubmit = function handleMessageSubmit(message) {
+                    console.log(message);
+                    socket.emit("chat", { data: message });
+                };
+            }
+        }, {
+            key: "appendTo",
+            value: function appendTo(container) {
+                React.render(React.createElement(ClientView, null), container);
+            }
+        }]);
 
-		return Client;
-	})();
+        return Client;
+    })();
 });

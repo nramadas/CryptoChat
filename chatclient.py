@@ -8,11 +8,11 @@ socketio = SocketIO(app)
 
 @app.route("/")
 def frontpage():
-	return render_template("frontpage.html")
+    return render_template("frontpage.html")
 
 @socketio.on("chat", namespace='/chat')
 def handle_chat(json):
-	print("recetived json:" + str(json))
+    print("recetived json:" + str(json))
 
 @socketio.on('connect', namespace='/chat')
 def test_connect():
@@ -23,4 +23,4 @@ def test_disconnect():
     print('Client disconnected')
 
 if __name__ == "__main__":
-	socketio.run(app)
+    socketio.run(app)

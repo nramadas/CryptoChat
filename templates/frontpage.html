@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+	<head>
+		<title>ChatClient</title>
+		<script data-main="/static/bin/main.js" src="/static/bin/require.js"></script>
+		<script>
+			var load = function() {
+				require(["client"], function(Client) {
+					var client = new Client();
+					client.appendTo(document.getElementById("client"));
+				});
+			};
+		</script>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+			}
+
+			#client {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+		</style>
+	</head>
+	<body onload="load();">
+		<div id="client"></div>
+	</body>
+</html>

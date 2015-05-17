@@ -1,10 +1,12 @@
 "use strict";
 
-var requirements = ["react"];
+var requirements = ["react", "styleLibrary"];
 
-define(requirements, function (React) {
+define(requirements, function (React, StyleLibrary) {
     return React.createClass({
         getInitialState: function getInitialState() {
+            var colors = StyleLibrary.colors;
+
             return {
                 styles: {
                     self: {
@@ -13,7 +15,7 @@ define(requirements, function (React) {
                         "bottom": 0,
                         "left": 0,
                         "right": 0,
-                        "background-color": "black" },
+                        "background-color": colors.baseOrange },
 
                     title: {
                         "position": "absolute",
@@ -32,12 +34,14 @@ define(requirements, function (React) {
         },
 
         render: function render() {
+            var styles = this.state.styles;
+
             return React.createElement(
                 "div",
-                { className: "ClientViewHeader", style: this.state.styles.self },
+                { className: "ClientViewHeader", style: styles.self },
                 React.createElement(
                     "div",
-                    { className: "ClientViewHeader__Title", style: this.state.styles.title },
+                    { className: "ClientViewHeader__Title", style: styles.title },
                     "CryptoChat"
                 )
             );

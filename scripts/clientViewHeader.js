@@ -1,10 +1,13 @@
 const requirements = [
     "react",
+    "styleLibrary",
 ];
 
-define(requirements, (React) => {
+define(requirements, (React, StyleLibrary) => {
     return React.createClass({
         getInitialState() {
+            let {colors} = StyleLibrary;
+
             return {
                 styles: {
                     self: {
@@ -13,7 +16,7 @@ define(requirements, (React) => {
                         "bottom": 0,
                         "left": 0,
                         "right": 0,
-                        "background-color": "black",
+                        "background-color": colors.baseOrange,
                     },
 
                     title: {
@@ -34,9 +37,11 @@ define(requirements, (React) => {
         },
 
         render() {
+            let {styles} = this.state;
+
             return (
-                <div className="ClientViewHeader" style={this.state.styles.self} >
-                    <div className="ClientViewHeader__Title" style={this.state.styles.title} >
+                <div className="ClientViewHeader" style={styles.self} >
+                    <div className="ClientViewHeader__Title" style={styles.title} >
                         CryptoChat
                     </div>
                 </div>

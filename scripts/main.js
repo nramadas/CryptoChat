@@ -1,4 +1,4 @@
 require.config({
-	baseUrl: "/static/bin",
-	urlArgs: "bust=" + (new Date()).getTime(),
+    baseUrl: "/static/bin",
+    urlArgs: "bust=" + (new Date()).getTime(),
 })

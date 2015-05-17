@@ -19,8 +19,10 @@ define(requirements, (React) => {
         },
 
         render() {
+            let {styles} = this.state;
+
             return (
-                <div className="ClientViewFriends" style={this.state.styles.self} ></div>
+                <div className="ClientViewFriends" style={styles.self} ></div>
             )
         }
     });

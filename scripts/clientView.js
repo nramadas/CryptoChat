@@ -1,15 +1,17 @@
 const requirements = [
     "react",
+    "styleLibrary",
     "clientViewHeader",
     "clientViewFriends",
 ];
 
-define(requirements, (React, ClientViewHeader, ClientViewFriends) => {
+define(requirements, (React, StyleLibrary, ClientViewHeader, ClientViewFriends) => {
     return React.createClass({
         getInitialState() {
-            let headerHeight = 80;
-            let friendsViewWidth = 200;
-            let inputAreaHeight = 50;
+            const headerHeight = 60;
+            const friendsViewWidth = 200;
+            const inputAreaHeight = 50;
+            let {colors} = StyleLibrary;
 
             return {
                 styles: {
@@ -35,7 +37,7 @@ define(requirements, (React, ClientViewHeader, ClientViewFriends) => {
                         "left": 0,
                         "bottom": 0,
                         "width": friendsViewWidth,
-                        "border-right": "1px solid black",
+                        "border-right": `1px solid ${colors.orangeBorder}`,
                     },
 
                     chat: {
@@ -52,23 +54,25 @@ define(requirements, (React, ClientViewHeader, ClientViewFriends) => {
                         "right": 0,
                         "bottom": 0,
                         "height": inputAreaHeight,
-                        "border-top": "1px solid black",
+                        "border-top": `1px solid ${colors.orangeBorder}`,
                     }
                 }
             };
         },
 
         render() {
+            let {styles} = this.state;
+
             return (
-                <div className="ClientView" style={this.state.styles.self}>
-                    <div className="ClientView__Header" style={this.state.styles.header}>
+                <div className="ClientView" style={styles.self}>
+                    <div className="ClientView__Header" style={styles.header}>
                         <ClientViewHeader />
                     </div>
-                    <div className="ClientView__Friends" style={this.state.styles.friends}>
+                    <div className="ClientView__Friends" style={styles.friends}>
                         <ClientViewFriends />
                     </div>
-                    <div className="ClientView__ChatWindow" style={this.state.styles.chat}></div>
-                    <div className="ClientView__InputArea" style={this.state.styles.inputArea}></div>
+                    <div className="ClientView__ChatWindow" style={styles.chat}></div>
+                    <div className="ClientView__InputArea" style={styles.inputArea}></div>
                 </div>
             );
         }

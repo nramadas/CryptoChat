@@ -1,13 +1,14 @@
 "use strict";
 
-var requirements = ["react", "clientViewHeader", "clientViewFriends"];
+var requirements = ["react", "styleLibrary", "clientViewHeader", "clientViewFriends"];
 
-define(requirements, function (React, ClientViewHeader, ClientViewFriends) {
+define(requirements, function (React, StyleLibrary, ClientViewHeader, ClientViewFriends) {
     return React.createClass({
         getInitialState: function getInitialState() {
-            var headerHeight = 80;
+            var headerHeight = 60;
             var friendsViewWidth = 200;
             var inputAreaHeight = 50;
+            var colors = StyleLibrary.colors;
 
             return {
                 styles: {
@@ -32,7 +33,7 @@ define(requirements, function (React, ClientViewHeader, ClientViewFriends) {
                         "left": 0,
                         "bottom": 0,
                         "width": friendsViewWidth,
-                        "border-right": "1px solid black" },
+                        "border-right": "1px solid " + colors.orangeBorder },
 
                     chat: {
                         "position": "absolute",
@@ -48,27 +49,29 @@ define(requirements, function (React, ClientViewHeader, ClientViewFriends) {
                         "right": 0,
                         "bottom": 0,
                         "height": inputAreaHeight,
-                        "border-top": "1px solid black" }
+                        "border-top": "1px solid " + colors.orangeBorder }
                 }
             };
         },
 
         render: function render() {
+            var styles = this.state.styles;
+
             return React.createElement(
                 "div",
-                { className: "ClientView", style: this.state.styles.self },
+                { className: "ClientView", style: styles.self },
                 React.createElement(
                     "div",
-                    { className: "ClientView__Header", style: this.state.styles.header },
+                    { className: "ClientView__Header", style: styles.header },
                     React.createElement(ClientViewHeader, null)
                 ),
                 React.createElement(
                     "div",
-                    { className: "ClientView__Friends", style: this.state.styles.friends },
+                    { className: "ClientView__Friends", style: styles.friends },
                     React.createElement(ClientViewFriends, null)
                 ),
-                React.createElement("div", { className: "ClientView__ChatWindow", style: this.state.styles.chat }),
-                React.createElement("div", { className: "ClientView__InputArea", style: this.state.styles.inputArea })
+                React.createElement("div", { className: "ClientView__ChatWindow", style: styles.chat }),
+                React.createElement("div", { className: "ClientView__InputArea", style: styles.inputArea })
             );
         }
     });

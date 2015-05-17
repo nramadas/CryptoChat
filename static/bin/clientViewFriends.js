@@ -18,7 +18,9 @@ define(requirements, function (React) {
         },
 
         render: function render() {
-            return React.createElement("div", { className: "ClientViewFriends", style: this.state.styles.self });
+            var styles = this.state.styles;
+
+            return React.createElement("div", { className: "ClientViewFriends", style: styles.self });
         }
     });
 });

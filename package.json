@@ -1,0 +1,17 @@
+{
+  "dependencies": {},
+  "devDependencies": {
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4",
+    "es6-module-transpiler-amd-formatter": "^0.3.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.1.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-es6-module-transpiler": "^0.2.1",
+    "gulp-ignore": "^1.2.1",
+    "gulp-util": "^3.0.5",
+    "gulp-watch": "^4.2.4",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}

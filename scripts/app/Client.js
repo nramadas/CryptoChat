@@ -1,7 +1,8 @@
-import React            from "./React";
-import SocketIO         from "./Socketio";
+import                       "babelify/polyfill";
+import React            from "../lib/React";
+import SocketIO         from "../lib/Socketio";
 import ClientView       from "./ClientView";
-import ClientLoginView  from "./ClientLoginView";
+import ClientViewLogin  from "./ClientViewLogin";
 
 const socketEndpoint = "/chat";
 
@@ -26,6 +27,6 @@ export default class Client {
 
     appendTo($container) {
         this.$container = $container;
-        React.render(React.createElement(ClientLoginView, null), $container);
+        React.render(React.createElement(ClientViewLogin, null), $container);
     }
 }

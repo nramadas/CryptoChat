@@ -1,4 +1,4 @@
-import React from "./React";
+import React from "../lib/React";
 
 export default React.createClass({
     getInitialState() {

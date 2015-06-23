@@ -1,6 +1,6 @@
-import StyleLibrary from "./StyleLibrary";
-import React        from "./React";
-import _            from "./Lodash"
+import React        from "../lib/React";
+import _            from "../lib/Lodash";
+import StyleLibrary from "../lib/StyleLibrary";
 
 let T = React.PropTypes;
 
@@ -13,12 +13,13 @@ export default React.createClass({
         let {colors, mixins} = StyleLibrary;
 
         let styles = {
-            "background-color": colors.baseOrange,
+            "background-color": colors.baseBlueGrey,
             "height": "50px",
             "line-height": "50px",
             "text-align": "center",
             "font-size": "24px",
             "color": colors.lightOrange,
+            "font-family": "inconsolata",
         };
 
         _.extend(styles,

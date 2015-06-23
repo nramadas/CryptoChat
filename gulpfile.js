@@ -9,12 +9,12 @@ var gulp        = require("gulp"),
 var build = function() {
     console.log("building....");
     return browserify({
-        entries: "./scripts/Client.js",
+        entries: "./scripts/app/Client.js",
         debug: true})
     .transform(babelify.configure({
         optional: ["es7.asyncFunctions"],
         ignore: /Socketio|React|Lodash/}))
-    .require("./scripts/Client.js", {expose: "Client"})
+    .require("./scripts/app/Client.js", {expose: "Client"})
     .bundle()
     .pipe(source("Client.js"))
     .pipe(buffer())

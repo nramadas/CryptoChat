@@ -1,6 +1,9 @@
 let colors = {
     baseOrange: "#FF9800",
     lightOrange: "#FFECB3",
+    baseBlueGrey: "#455a64",
+    lightBlueGrey: "#B0BEC5",
+    darkBlueGrey: "#263238",
 };
 
 let borders = {
@@ -70,6 +73,14 @@ let mixins = {
             "-webkit-box-shadow": str,
             "-moz-box-shadow": str,
             "box-shadow": str
+        }
+    },
+
+    borderbox() {
+        return {
+            "-webkit-box-sizing": "border-box",
+            "-moz-box-sizing": "border-box",
+            "box-sizing": "border-box",
         }
     },
 };

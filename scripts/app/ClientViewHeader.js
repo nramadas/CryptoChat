@@ -1,5 +1,5 @@
-import React        from "./React";
-import StyleLibrary from "./StyleLibrary";
+import React        from "../lib/React";
+import StyleLibrary from "../lib/StyleLibrary";
 
 export default React.createClass({
     getInitialState() {

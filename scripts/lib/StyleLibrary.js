@@ -1,14 +1,20 @@
+import _ from "./Lodash";
+
 let colors = {
     baseOrange: "#FF9800",
     lightOrange: "#FFECB3",
+    veryLightOrange: "#fff8e1",
     baseBlueGrey: "#455a64",
     lightBlueGrey: "#B0BEC5",
     darkBlueGrey: "#263238",
+    red: "#f44336",
+    veryLightRed: "#ffebee",
 };
 
 let borders = {
     orangeBorder: `1px solid ${colors.baseOrange}`,
     lightOrangeBorder: `1px solid ${colors.lightOrange}`,
+    redBorder: `1px solid ${colors.red}`,
 };
 
 let mixins = {
@@ -82,6 +88,30 @@ let mixins = {
             "-moz-box-sizing": "border-box",
             "box-sizing": "border-box",
         }
+    },
+
+    clearFix() {
+        return {
+            "overflow": "auto",
+        }
+    },
+
+    forceHardwareAcceleration() {
+        return {
+            "-webkit-backface-visibility": "hidden",
+            "-moz-backface-visibility": "hidden",
+        }
+    },
+
+    transition(properties={}) {
+        let str = _.map(properties, (value, key) => `${key} ${value}`).join(", ");
+
+        return {
+            "-webkit-transition": `-webkit-transform, ${str}`,
+            "-moz-transition": `-moz-transform, ${str}`,
+            "transition": `transform, ${str}`,
+        }
+
     },
 };
 

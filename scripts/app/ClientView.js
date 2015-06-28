@@ -1,5 +1,6 @@
 import React                from "../lib/React";
 import StyleLibrary         from "../lib/StyleLibrary";
+import LayoutPageHeader     from "../layout/PageHeader";
 import ClientViewHeader     from "./ClientViewHeader";
 import ClientViewFriends    from "./ClientViewFriends";
 
@@ -61,15 +62,13 @@ export default React.createClass({
         let {styles} = this.state;
 
         return (
-            <div className="ClientView" style={styles.self}>
-                <div className="ClientView__Header" style={styles.header}>
-                    <ClientViewHeader />
-                </div>
-                <div className="ClientView__Friends" style={styles.friends}>
+            <div style={styles.self}>
+                <LayoutPageHeader title="CryptoChat" />
+                <div style={styles.friends}>
                     <ClientViewFriends />
                 </div>
-                <div className="ClientView__ChatWindow" style={styles.chat}></div>
-                <div className="ClientView__InputArea" style={styles.inputArea}></div>
+                <div style={styles.chat}></div>
+                <div style={styles.inputArea}></div>
             </div>
         );
     }

@@ -9,12 +9,14 @@ export default React.createClass({
         title: T.string.isRequired,
         name: T.string.isRequired,
         type: T.string,
+        onSubmit: T.function,
     },
 
     getDefaultProps() {
         return {
             type: "text",
             fontSize: "18px",
+            onSubmit: () => {},
         }
     },
 
@@ -40,34 +42,56 @@ export default React.createClass({
                 "border": borders.lightOrangeBorder,
                 "font-family": "lato",
                 "color": colors.baseBlueGrey,
-            }
+                "background-color": "white",
+            },
         };
 
         _.extend(styles.input,
             mixins.roundedCorners(5),
             mixins.borderbox(),
+            mixins.forceHardwareAcceleration(),
+            mixins.transition({"border": "0.2s", "background-color": "0.2s"}),
             {"font-size": this.props.fontSize});
 
-        return {
-            styles,
-        }
+        _.extend(styles.label,
+            mixins.forceHardwareAcceleration(),
+            mixins.transition({"color": "0.2s"}));
+
+        return {styles};
     },
 
     onFocus() {
-        let newState = {};
-        _.extend(newState, this.state);
-        newState.styles.input.border = StyleLibrary.borders.orangeBorder;
+        let {colors, borders} = StyleLibrary;
+        let newState = _.extend({}, this.state);
+        newState.styles.input.border = borders.orangeBorder;
+        newState.styles.input["background-color"] = colors.veryLightOrange;
+        newState.styles.label.color = colors.baseOrange;
         this.setState(newState);
     },
 
     onBlur() {
-        let newState = {};
-        _.extend(newState, this.state);
-        newState.styles.input.border = StyleLibrary.borders.lightOrangeBorder;
+        let {colors, borders} = StyleLibrary;
+        let newState = _.extend({}, this.state);
+        newState.styles.input.border = borders.lightOrangeBorder;
+        newState.styles.input["background-color"] = "white";
+        this.setState(newState);
+    },
+
+    getValue() {
+        return React.findDOMNode(this.refs.input).value || "";
+    },
+
+    renderError(errorMsg) {
+        let {colors, borders} = StyleLibrary;
+        let newState = _.extend({}, this.state);
+        newState.styles.input.border = borders.redBorder;
+        newState.styles.input["background-color"] = colors.veryLightRed;
+        newState.styles.label.color = colors.red;
         this.setState(newState);
     },
 
     render() {
+        let {colors, borders} = StyleLibrary;
         let {label, input} = this.state.styles;
 
         return (
@@ -78,7 +102,8 @@ export default React.createClass({
                            type={this.props.type}
                            style={input} 
                            onFocus={this.onFocus}
-                           onBlur={this.onBlur} />
+                           onBlur={this.onBlur}
+                           ref="input" />
                 </label>
             </div>
         );

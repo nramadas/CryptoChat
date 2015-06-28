@@ -8,8 +8,8 @@ export default React.createClass({
         return {
             style: {
                 "padding": "40px 20px",
-            }
-        }
+            },
+        };
     },
 
     render() {

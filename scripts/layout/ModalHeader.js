@@ -26,8 +26,7 @@ export default React.createClass({
             mixins.boxShadow({
                 color: colors.lightOrange,
                 blur: 8,
-                spread: 8
-            }))
+                spread: 8}));
 
         return {styles};
     },

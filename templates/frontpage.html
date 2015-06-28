@@ -9,12 +9,23 @@
                 font-family: "lato";
             }
 
-            #client {
+            #client,
+            #login {
                 position: absolute;
                 top: 0;
                 bottom: 0;
                 left: 0;
                 right: 0;
+                background-image: url("/static/assets/crossword.png");
+                -webkit-backface-visibility: "hidden";
+                -moz-backface-visibility: "hidden";
+                -webkit-transition: -webkit-transform, opacity 1s;
+                -moz-transition: -moz-transform, opacity 1s;
+                transition: transform, opacity 1s;
+            }
+
+            #client {
+                opacity: 0;
             }
 
             @font-face {
@@ -35,12 +46,16 @@
     </head>
     <body onload="load();">
         <div id="client"></div>
+        <div id="login"></div>
         <script src="/static/bin/Client.js"></script>
         <script>
             var load = function() {
                 var Client = require("Client");
                 var client = new Client();
-                client.appendTo(document.getElementById("client"));
+                client.appendTo({
+                    client: document.getElementById("client"),
+                    login: document.getElementById("login")
+                });
             };
         </script>
     </body>

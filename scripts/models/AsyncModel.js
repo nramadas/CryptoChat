@@ -2,24 +2,27 @@ import AJAX from "../utils/AJAX";
 
 class AsyncModel {
     static fetch(params) {
-        let {ENDPOINT} = this.prototype;
+        let {ENDPOINT} = this;
         let p = AJAX.post(ENDPOINT, params)
         return new this(p);
     }
 
+    static PROPERTIES = []
+    static ENDPOINT = ""
+    static KEY = ""
+
     constructor(initialPromise) {
-        let self = this;
         let currentPromise = initialPromise;
         let currentObjectDescription = {};
         let stateSyncTimer = null;
         let isDeleted = false;
 
         let createProperty = (property) => {
-            Object.defineProperty(self, property, {
+            Object.defineProperty(this, property, {
                 get: () => {
-                    return currentPromise.then((objectDescription) => {
-                        currentObjectDescription = objectDescription;
-                        return currentObjectDescription;
+                    return currentPromise.then((response) => {
+                        currentObjectDescription = response[this.constructor.KEY];
+                        return currentObjectDescription[property];
                     });
                 },
 
@@ -28,28 +31,25 @@ class AsyncModel {
                         currentObjectDescription[property] = newValue;
                         clearTimeout(stateSyncTimer);
                         stateSyncTimer = setTimeout(() => {
-                            AJAX.put(self.ENDPOINT, currentObjectDescription);
+                            AJAX.put(this.constructor.ENDPOINT, currentObjectDescription);
                         }, 25);
                     });
                 }
             });
         };
 
-        for (let index in this.PROPERTIES) {
-            let modelProperty = this.PROPERTIES[index];
+        for (let index in this.constructor.PROPERTIES) {
+            let modelProperty = this.constructor.PROPERTIES[index];
             createProperty(modelProperty);
         }
 
         this.remove = () => {
-            currentPromise = AJAX.delete(self.ENDPOINT).then(() => {
+            currentPromise = AJAX.delete(this.constructor.ENDPOINT).then(() => {
                 isDeleted = true;
                 return {};
             });
         };
     }
 }
-
-AsyncModel.prototype.PROPERTIES = [];
-AsyncModel.prototype.ENDPOINT = "";
 
 export default AsyncModel;

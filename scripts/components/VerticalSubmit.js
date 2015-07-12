@@ -1,7 +1,6 @@
-import _            from "../lib/Lodash";
 import React        from "../lib/React";
 import StyleLibrary from "../lib/StyleLibrary";
-import SubmitButton from "../components/SubmitButton";
+import SubmitButton from "./SubmitButton";
 
 let T = React.PropTypes;
 

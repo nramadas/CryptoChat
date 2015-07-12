@@ -1,4 +1,3 @@
-import _            from "../lib/Lodash";
 import React        from "../lib/React";
 import StyleLibrary from "../lib/StyleLibrary";
 
@@ -20,6 +19,10 @@ export default React.createClass({
         let {colors, borders, mixins} = StyleLibrary;
 
         let styles = {
+            ...mixins.borderbox(),
+            ...mixins.roundedCorners(5),
+            ...mixins.forceHardwareAcceleration(),
+            ...mixins.transition({"background-color": "0.2s"}),
             "padding": "0 10px",
             "background-color": colors.baseOrange,
             "color": "white",
@@ -29,30 +32,22 @@ export default React.createClass({
             "cursor": "pointer",
         };
 
-        _.extend(styles,
-            mixins.borderbox(),
-            mixins.roundedCorners(5),
-            mixins.forceHardwareAcceleration(),
-            mixins.transition({"background-color": "0.2s"}));
-
         return {styles};
     },
 
     onMouseEnter() {
         let {colors} = StyleLibrary;
-        let newState = _.extend(this.state);
-        _.extend(newState.styles, {
+        let newState = {...this.state, styles: {
             "background-color": colors.baseBlueGrey,
-        });
+        }};
         this.setState(newState);
     },
 
     onMouseLeave() {
         let {colors} = StyleLibrary;
-        let newState = _.extend(this.state);
-        _.extend(newState.styles, {
+        let newState = {...this.state, styles: {
             "background-color": colors.baseOrange,
-        });
+        }};
         this.setState(newState);
     },
 

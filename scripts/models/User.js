@@ -1,7 +1,9 @@
 import AsyncModel from "./AsyncModel";
 
-class User extends AsyncModel {}
-User.prototype.ENDPOINT = "/user";
-User.prototype.PROPERTIES = ["id", "username"];
+class User extends AsyncModel {
+    static PROPERTIES = ["id", "username"]
+    static ENDPOINT = "/user"
+    static KEY = "user"
+}
 
 export default User;

@@ -2,7 +2,7 @@ import _ from "./Lodash";
 
 let colors = {
     baseOrange: "#FF9800",
-    lightOrange: "#FFECB3",
+    lightOrange: "#ffe0b2",
     veryLightOrange: "#fff8e1",
     baseBlueGrey: "#455a64",
     lightBlueGrey: "#B0BEC5",
@@ -25,9 +25,9 @@ let mixins = {
             "left": "50%",
             "width": `${width}px`,
             "height": `${height}px`,
-            "margin-left": `-${(width/2)}px`,
-            "margin-top": `-${(height/2)}px`,
-        }
+            "margin-left": `-${width/2}px`,
+            "margin-top": `-${height/2}px`,
+        };
     },
 
     fullBox() {
@@ -37,6 +37,48 @@ let mixins = {
             "bottom": "0px",
             "left": "0px",
             "right": "0px",
+        };
+    },
+
+    fullHoriz() {
+        return {
+            "position": "absolute",
+            "left": "0px",
+            "right": "0px",
+        };
+    },
+
+    fullVert() {
+        return {
+            "position": "absolute",
+            "top": "0px",
+            "bottom": "0px",
+        };
+    },
+
+    centerHoriz({width}) {
+        return {
+            "position": "absolute",
+            "left": "50%",
+            "margin-left": `-${width/2}px`,
+            "width": `${width}px`,
+        };
+    },
+
+    centerVert({height}) {
+        return {
+            "position": "absolute",
+            "top": "50%",
+            "margin-top": `-${height/2}px`,
+            "height": `${height}px`,
+        };
+    },
+
+    centeredText({height}) {
+        return {
+            "height": `${height}px`,
+            "line-height": `${height}px`,
+            "text-align": "center",
         }
     },
 
@@ -51,13 +93,13 @@ let mixins = {
             "-moz-border-radius": str,
             "-webkit-border-radius": str,
             "border-radius": str
-        }
+        };
     },
 
     patternBackground() {
         return {
             "background": "url(\"/static/assets/crossword.png\")"
-        }
+        };
     },
 
     boxShadow({color, x, y, blur, spread, inset}) {
@@ -79,7 +121,7 @@ let mixins = {
             "-webkit-box-shadow": str,
             "-moz-box-shadow": str,
             "box-shadow": str
-        }
+        };
     },
 
     borderbox() {
@@ -87,20 +129,20 @@ let mixins = {
             "-webkit-box-sizing": "border-box",
             "-moz-box-sizing": "border-box",
             "box-sizing": "border-box",
-        }
+        };
     },
 
     clearFix() {
         return {
             "overflow": "auto",
-        }
+        };
     },
 
     forceHardwareAcceleration() {
         return {
             "-webkit-backface-visibility": "hidden",
             "-moz-backface-visibility": "hidden",
-        }
+        };
     },
 
     transition(properties={}) {
@@ -110,9 +152,21 @@ let mixins = {
             "-webkit-transition": `-webkit-transform, ${str}`,
             "-moz-transition": `-moz-transform, ${str}`,
             "transition": `transform, ${str}`,
-        }
+        };
 
     },
+
+    inputStyling() {
+        return {
+            ...mixins.roundedCorners(5),
+            ...mixins.borderbox(),
+            "display": "block",
+            "padding": "0 10px",
+            "color": colors.baseBlueGrey,
+            "background-color": "white",
+            "outline": "none",
+        }
+    }
 };
 
 export default {colors, borders, mixins};

@@ -1,4 +1,3 @@
-import _            from "../lib/Lodash";
 import React        from "../lib/React";
 import StyleLibrary from "../lib/StyleLibrary";
 
@@ -14,9 +13,7 @@ export default React.createClass({
 
         let styles = {
             title: {
-                "height": "60px",
-                "line-height": "60px",
-                "text-align": "center",
+                ...mixins.centeredText({height: 60}),
                 "font-size": "24px",
                 "background-color": colors.baseBlueGrey,
                 "color": colors.baseOrange,
@@ -27,6 +24,7 @@ export default React.createClass({
                 "height": "8px",
                 "background": "url('/static/assets/borderbar.png')",
                 "background-size": "16px 8px",
+                "border-bottom": `5px solid ${colors.baseOrange}`
             },
         };
 

@@ -1,5 +1,4 @@
 import React        from "../lib/React";
-import _            from "../lib/Lodash";
 import StyleLibrary from "../lib/StyleLibrary";
 
 let T = React.PropTypes;
@@ -25,44 +24,33 @@ export default React.createClass({
 
         let styles = {
             label: {
+                ...mixins.forceHardwareAcceleration(),
+                ...mixins.transition({"color": "0.2s"}),
                 "font-size": "22px",
                 "color": colors.baseOrange,
                 "font-family": "poiret",
             },
 
             input: {
-                "display": "block",
+                ...mixins.inputStyling(),
+                ...mixins.forceHardwareAcceleration(),
+                ...mixins.transition({"border": "0.2s", "background-color": "0.2s"}),
                 "width": "100%",
                 "height": "40px",
                 "margin-top": "8px",
-                "padding": "0 10px",
                 "line-height": "40px",
-                "font-size": "18px",
-                "outline": "none",
                 "border": borders.lightOrangeBorder,
                 "font-family": "lato",
-                "color": colors.baseBlueGrey,
-                "background-color": "white",
+                "font-size": this.props.fontSize,
             },
         };
-
-        _.extend(styles.input,
-            mixins.roundedCorners(5),
-            mixins.borderbox(),
-            mixins.forceHardwareAcceleration(),
-            mixins.transition({"border": "0.2s", "background-color": "0.2s"}),
-            {"font-size": this.props.fontSize});
-
-        _.extend(styles.label,
-            mixins.forceHardwareAcceleration(),
-            mixins.transition({"color": "0.2s"}));
 
         return {styles};
     },
 
     onFocus() {
         let {colors, borders} = StyleLibrary;
-        let newState = _.extend({}, this.state);
+        let newState = {...this.state};
         newState.styles.input.border = borders.orangeBorder;
         newState.styles.input["background-color"] = colors.veryLightOrange;
         newState.styles.label.color = colors.baseOrange;
@@ -71,7 +59,7 @@ export default React.createClass({
 
     onBlur() {
         let {colors, borders} = StyleLibrary;
-        let newState = _.extend({}, this.state);
+        let newState = {...this.state};
         newState.styles.input.border = borders.lightOrangeBorder;
         newState.styles.input["background-color"] = "white";
         this.setState(newState);
@@ -83,11 +71,17 @@ export default React.createClass({
 
     renderError(errorMsg) {
         let {colors, borders} = StyleLibrary;
-        let newState = _.extend({}, this.state);
+        let newState = {...this.state};
         newState.styles.input.border = borders.redBorder;
         newState.styles.input["background-color"] = colors.veryLightRed;
         newState.styles.label.color = colors.red;
         this.setState(newState);
+    },
+
+    onKeyPress(event) {
+        if (event.key == "Enter") {
+            this.props.onSubmit();
+        }
     },
 
     render() {
@@ -103,6 +97,7 @@ export default React.createClass({
                            style={input} 
                            onFocus={this.onFocus}
                            onBlur={this.onBlur}
+                           onKeyPress={this.onKeyPress}
                            ref="input" />
                 </label>
             </div>

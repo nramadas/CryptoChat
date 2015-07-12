@@ -12,7 +12,11 @@ var build = function() {
         entries: "./scripts/app/Client.js",
         debug: true})
     .transform(babelify.configure({
-        optional: ["es7.asyncFunctions", "es7.classProperties"],
+        optional: [
+            "es7.asyncFunctions",
+            "es7.classProperties",
+            "es7.objectRestSpread",
+        ],
         ignore: /Socketio|React|Lodash/}))
     .require("./scripts/app/Client.js", {expose: "Client"})
     .bundle()

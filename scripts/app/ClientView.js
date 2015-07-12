@@ -1,74 +1,61 @@
 import React                from "../lib/React";
 import StyleLibrary         from "../lib/StyleLibrary";
-import LayoutPageHeader     from "../layout/PageHeader";
 import ClientViewHeader     from "./ClientViewHeader";
 import ClientViewFriends    from "./ClientViewFriends";
+import ClientViewMsgSend    from "./ClientViewMsgSend";
 
 export default React.createClass({
     getInitialState() {
-        const headerHeight = 60;
-        const friendsViewWidth = 200;
-        const inputAreaHeight = 50;
-        let {colors, borders} = StyleLibrary;
+        const friendsViewWidth = 220;
+        const inputAreaHeight = 70;
+        const {colors, borders, mixins} = StyleLibrary;
 
-        return {
-            styles: {
-                self: {
-                    "position": "absolute",
-                    "top": 0,
-                    "left": 0,
-                    "right": 0,
-                    "bottom": 0
-                },
+        let styles = {
+            container: mixins.fullBox(),
 
-                header: {
-                    "position": "absolute",
-                    "top": 0,
-                    "left": 0,
-                    "right": 0,
-                    "height": headerHeight,
-                },
+            friends: {
+                ...mixins.fullVert(),
+                ...mixins.borderbox(),
+                "left": 0,
+                "width": friendsViewWidth,
+                "border-right": borders.orangeBorder,
+            },
 
-                friends: {
-                    "position": "absolute",
-                    "top": headerHeight,
-                    "left": 0,
-                    "bottom": 0,
-                    "width": friendsViewWidth,
-                    "border-right": borders.orangeBorder,
-                },
+            chat: {
+                ...mixins.borderbox(),
+                "position": "absolute",
+                "top": 0,
+                "left": friendsViewWidth,
+                "bottom": inputAreaHeight,
+                "right": 0
+            },
 
-                chat: {
-                    "position": "absolute",
-                    "top": headerHeight,
-                    "left": friendsViewWidth,
-                    "bottom": inputAreaHeight,
-                    "right": 0
-                },
-
-                inputArea: {
-                    "position": "absolute",
-                    "left": friendsViewWidth,
-                    "right": 0,
-                    "bottom": 0,
-                    "height": inputAreaHeight,
-                    "border-top": borders.orangeBorder,
-                }
-            }
+            inputArea: {
+                ...mixins.borderbox(),
+                "position": "absolute",
+                "left": friendsViewWidth,
+                "right": 0,
+                "bottom": 0,
+                "height": inputAreaHeight,
+                "border-top": borders.orangeBorder,
+            },
         };
+
+        return {styles};
     },
 
     render() {
         let {styles} = this.state;
 
         return (
-            <div style={styles.self}>
-                <LayoutPageHeader title="CryptoChat" />
+            <div style={styles.container}>
                 <div style={styles.friends}>
                     <ClientViewFriends />
                 </div>
                 <div style={styles.chat}></div>
-                <div style={styles.inputArea}></div>
+                <div style={styles.inputArea}>
+                    <ClientViewMsgSend />
+                </div>
             </div>
         );
     }

@@ -30,10 +30,17 @@ class User(db.Model):
         db.session.add(self)
         db.session.commit()
 
+    def to_friend_dict(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+        }
+
     def to_api_dict(self):
         return {
             "id": self.id,
             "username": self.username,
+            "friends": [u.to_friend_dict() for u in User.query.all()],
         }
 
 @app.route("/")

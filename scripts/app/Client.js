@@ -1,17 +1,14 @@
 import                       "babelify/polyfill";
 import React            from "../lib/React";
-import SocketIO         from "../lib/Socketio";
 import AJAX             from "../utils/AJAX";
 import User             from "../models/User";
 import ClientView       from "./ClientView";
 import ClientViewLogin  from "./ClientViewLogin";
 import ClientViewHeader from "./ClientViewHeader";
-
-const socketEndpoint = "/chat";
+import Discussion       from "./Discussion";
 
 export default class Client {
     constructor() {
-        this.setupPublicAndPrivates();
         this.$client = null;
         this.$login = null;
         this.$header = null;
@@ -19,19 +16,17 @@ export default class Client {
         this.clientView = null;
         this.loginView = null;
         this.headerView = null;
+        this.d = Discussion.create(null);
+        this.createDiscussion();
     }
 
-    setupPublicAndPrivates() {
-        const socket = SocketIO.connect(socketEndpoint);
+    sendMessage(msg) {
+        console.log(msg);
+        this.d.sendMessage(msg);
+    }
 
-        socket.on("connect", function() {
-            console.log("connected");
-        });
-
-        var handleMessageSubmit = function(message) {
-            console.log(message);
-            socket.emit("chat", {data: message});
-        };
+    createDiscussion() {
+        let d = Discussion.create(null);
     }
 
     appendTo({client, login, header}) {
@@ -39,7 +34,9 @@ export default class Client {
         this.$login = login;
         this.$header = header;
 
-        const clientView = React.createElement(ClientView, {});
+        const clientView = React.createElement(ClientView, {
+            onMessageSendRequest: this.sendMessage.bind(this),
+        });
 
         const loginView = React.createElement(ClientViewLogin, {
             onSubmit: this.fetchUser.bind(this)
@@ -63,8 +60,12 @@ export default class Client {
         try {
             const username = await user.username;
             this.headerView.handleLogin(user);
+            this.clientView.handleLogin(user);
             this.$client.style.opacity = 1;
             this.$login.style.opacity = 0;
+            setTimeout(() => {
+                this.$login.style.display = "none";
+            }, 1100);
         } catch ({errors}) {
             this.loginView.handleFormErrors(errors);
         }

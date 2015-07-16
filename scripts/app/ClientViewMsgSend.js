@@ -2,7 +2,19 @@ import React            from "../lib/React";
 import StyleLibrary     from "../lib/StyleLibrary";
 import SubmitButton     from "../components/SubmitButton";
 
+const T = React.PropTypes;
+
 export default React.createClass({
+    propTypes: {
+        onMessageSendRequest: T.func,
+    },
+
+    getDefaultProps() {
+        return {
+            onMessageSendRequest: () => {},
+        }
+    },
+
     getInitialState() {
         const {mixins, colors, borders} = StyleLibrary;
 
@@ -36,8 +48,15 @@ export default React.createClass({
         return {styles}
     },
 
-    onSubmit: () => {
-        console.log("click");
+    onSubmit() {
+        let msg = React.findDOMNode(this.refs.input).value || "";
+        this.props.onMessageSendRequest(msg);
+    },
+
+    onKeyPress(event) {
+        if (event.key == "Enter") {
+            this.onSubmit();
+        }
     },
 
     render() {
@@ -48,7 +67,8 @@ export default React.createClass({
                 <input style={input}
                        type="text"
                        name="msg"
-                       ref="input" />
+                       ref="input"
+                       onKeyPress={this.onKeyPress} />
                 <div style={button}>
                     <SubmitButton buttonText="Submit"
                                   onSubmit={this.onSubmit} />

@@ -11,7 +11,7 @@ let T = React.PropTypes;
 
 export default React.createClass({
     propTypes: {
-        onSubmit: T.function,
+        onSubmit: T.func,
     },
 
     getDefaultProps() {

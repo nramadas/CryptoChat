@@ -6,7 +6,7 @@ let T = React.PropTypes;
 export default React.createClass({
     propTypes: {
         buttonText: T.string.isRequired,
-        onSubmit: T.function,
+        onSubmit: T.func,
     },
 
     getDefaultProps() {
@@ -16,7 +16,7 @@ export default React.createClass({
     },
 
     getInitialState() {
-        let {colors, borders, mixins} = StyleLibrary;
+        const {colors, borders, mixins} = StyleLibrary;
 
         let styles = {
             ...mixins.borderbox(),
@@ -36,16 +36,18 @@ export default React.createClass({
     },
 
     onMouseEnter() {
-        let {colors} = StyleLibrary;
+        const {colors} = StyleLibrary;
         let newState = {...this.state, styles: {
+            ...this.state.styles,
             "background-color": colors.baseBlueGrey,
         }};
         this.setState(newState);
     },
 
     onMouseLeave() {
-        let {colors} = StyleLibrary;
+        const {colors} = StyleLibrary;
         let newState = {...this.state, styles: {
+            ...this.state.styles,
             "background-color": colors.baseOrange,
         }};
         this.setState(newState);

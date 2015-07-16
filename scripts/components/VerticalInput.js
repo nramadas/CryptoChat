@@ -1,14 +1,14 @@
 import React        from "../lib/React";
 import StyleLibrary from "../lib/StyleLibrary";
 
-let T = React.PropTypes;
+const T = React.PropTypes;
 
 export default React.createClass({
     propTypes: {
         title: T.string.isRequired,
         name: T.string.isRequired,
         type: T.string,
-        onSubmit: T.function,
+        onSubmit: T.func,
     },
 
     getDefaultProps() {
@@ -20,7 +20,7 @@ export default React.createClass({
     },
 
     getInitialState() {
-        let {colors, borders, mixins} = StyleLibrary;
+        const {colors, borders, mixins} = StyleLibrary;
 
         let styles = {
             label: {
@@ -49,7 +49,7 @@ export default React.createClass({
     },
 
     onFocus() {
-        let {colors, borders} = StyleLibrary;
+        const {colors, borders} = StyleLibrary;
         let newState = {...this.state};
         newState.styles.input.border = borders.orangeBorder;
         newState.styles.input["background-color"] = colors.veryLightOrange;
@@ -58,7 +58,7 @@ export default React.createClass({
     },
 
     onBlur() {
-        let {colors, borders} = StyleLibrary;
+        const {colors, borders} = StyleLibrary;
         let newState = {...this.state};
         newState.styles.input.border = borders.lightOrangeBorder;
         newState.styles.input["background-color"] = "white";
@@ -70,7 +70,7 @@ export default React.createClass({
     },
 
     renderError(errorMsg) {
-        let {colors, borders} = StyleLibrary;
+        const {colors, borders} = StyleLibrary;
         let newState = {...this.state};
         newState.styles.input.border = borders.redBorder;
         newState.styles.input["background-color"] = colors.veryLightRed;
@@ -85,8 +85,8 @@ export default React.createClass({
     },
 
     render() {
-        let {colors, borders} = StyleLibrary;
-        let {label, input} = this.state.styles;
+        const {colors, borders} = StyleLibrary;
+        const {label, input} = this.state.styles;
 
         return (
             <div>

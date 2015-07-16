@@ -1,5 +1,6 @@
-import React            from "../lib/React";
-import StyleLibrary     from "../lib/StyleLibrary";
+import React                from "../lib/React";
+import StyleLibrary         from "../lib/StyleLibrary";
+import ClientViewFriend     from "./ClientViewFriend"
 
 export default React.createClass({
     getInitialState() {
@@ -26,20 +27,49 @@ export default React.createClass({
                 ...mixins.fullHoriz(),
                 "top": `${titleHeight}px`,
                 "bottom": "0px",
+                "border-top": `1px solid ${colors.lightOrange}`,
                 "background-color": "white",
             },
+
+            friend: {
+                "position": "relative",
+                "height": "50px",
+                "border-bottom": `1px solid ${colors.veryLightOrange}`,
+            }
         };
 
-        return {styles};
+        let friends = [];
+
+        return {styles, friends};
+    },
+
+    async handleLogin(user) {
+        let friends = await user.friends;
+        let newState = {...this.state, friends};
+        this.setState(newState);
+    },
+
+    onSelected(userId) {
+        console.log(userId);
     },
 
     render() {
-        let {container, title, friendsList} = this.state.styles;
+        let {friends, styles: {container, title, friendsList, friend}} = this.state;
+
+        friends = friends.map((f) => {
+            return (
+                <div style={friend}>
+                    <ClientViewFriend id={f.id}
+                                      name={f.username}
+                                      onSelected={this.onSelected} />
+                </div>
+            );
+        });
 
         return (
             <div style={container}>
                 <div style={title}>Friends</div>
-                <div style={friendsList}></div>
+                <div style={friendsList}>{friends}</div>
             </div>
         )
     }

@@ -7,7 +7,7 @@ let T = React.PropTypes;
 export default React.createClass({
     propTypes: {
         buttonText: T.string.isRequired,
-        onSubmit: T.function,
+        onSubmit: T.func,
     },
 
     getDefaultProps() {

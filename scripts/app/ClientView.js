@@ -4,7 +4,19 @@ import ClientViewHeader     from "./ClientViewHeader";
 import ClientViewFriends    from "./ClientViewFriends";
 import ClientViewMsgSend    from "./ClientViewMsgSend";
 
+const T = React.PropTypes;
+
 export default React.createClass({
+    propTypes: {
+        onMessageSendRequest: T.func,
+    },
+
+    getDefaultProps() {
+        return {
+            onMessageSendRequest: () => {},
+        }
+    },
+
     getInitialState() {
         const friendsViewWidth = 220;
         const inputAreaHeight = 70;
@@ -44,17 +56,21 @@ export default React.createClass({
         return {styles};
     },
 
+    handleLogin(user) {
+        this.refs.friends.handleLogin(user);
+    },
+
     render() {
         let {styles} = this.state;
 
         return (
             <div style={styles.container}>
                 <div style={styles.friends}>
-                    <ClientViewFriends />
+                    <ClientViewFriends ref="friends" />
                 </div>
                 <div style={styles.chat}></div>
                 <div style={styles.inputArea}>
-                    <ClientViewMsgSend />
+                    <ClientViewMsgSend onMessageSendRequest={this.props.onMessageSendRequest} />
                 </div>
             </div>
         );

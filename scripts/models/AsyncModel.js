@@ -7,7 +7,7 @@ class AsyncModel {
         return new this(p);
     }
 
-    static PROPERTIES = []
+    static PROPERTIES = {}
     static ENDPOINT = ""
     static KEY = ""
 
@@ -22,7 +22,9 @@ class AsyncModel {
                 get: () => {
                     return currentPromise.then((response) => {
                         currentObjectDescription = response[this.constructor.KEY];
-                        return currentObjectDescription[property];
+                        let responseValue = currentObjectDescription[property];
+                        let type = this.constructor.PROPERTIES[property];
+                        return type(responseValue);
                     });
                 },
 
@@ -38,8 +40,7 @@ class AsyncModel {
             });
         };
 
-        for (let index in this.constructor.PROPERTIES) {
-            let modelProperty = this.constructor.PROPERTIES[index];
+        for (let modelProperty in this.constructor.PROPERTIES) {
             createProperty(modelProperty);
         }
 

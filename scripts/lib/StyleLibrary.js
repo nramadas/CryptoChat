@@ -166,6 +166,14 @@ let mixins = {
             "background-color": "white",
             "outline": "none",
         }
+    },
+
+    textOverflow() {
+        return {
+            "overflow": "hidden",
+            "white-space": "nowrap",
+            "text-overflow": "ellipsis",
+        }
     }
 };
 

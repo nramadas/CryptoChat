@@ -21,11 +21,12 @@ export default React.createClass({
                 "background-color": "white",
                 "color": colors.baseBlueGrey,
                 "font-size": "16px",
+                "padding": "0 10px 0 40px",
             },
 
             content: {
-                ...mixins.centerBox({height: 50, width: 200}),
-                ...mixins.centeredText({height: 50}),
+                ...mixins.centeredText({height: 40}),
+                ...mixins.textOverflow(),
                 "text-align": "left",
             },
         };
@@ -48,7 +49,7 @@ export default React.createClass({
                     ...this.state.styles.container,
                     "background-color": colors.lightBlueGrey,
                     "color": "white",
-                }   
+                }
             }
         };
 
@@ -66,7 +67,7 @@ export default React.createClass({
                     ...this.state.styles.container,
                     "background-color": "white",
                     "color": colors.baseBlueGrey,
-                }   
+                }
             }
         };
 
@@ -84,5 +85,5 @@ export default React.createClass({
                 <div style={content}>{this.props.name}</div>
             </div>
         )
-    } 
+    }
 });

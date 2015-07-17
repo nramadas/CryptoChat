@@ -1,11 +1,11 @@
-import                       "babelify/polyfill";
-import React            from "../lib/React";
-import AJAX             from "../utils/AJAX";
-import User             from "../models/User";
-import ClientView       from "./ClientView";
-import ClientViewLogin  from "./ClientViewLogin";
-import ClientViewHeader from "./ClientViewHeader";
-import Discussion       from "./Discussion";
+import                           "babelify/polyfill";
+import React                from "../lib/React";
+import AJAX                 from "../utils/AJAX";
+import User                 from "../models/User";
+import ClientView           from "./ClientView";
+import ClientViewLogin      from "./ClientViewLogin";
+import ClientViewHeader     from "./ClientViewHeader";
+import DiscussionManager    from "./DiscussionManager";
 
 export default class Client {
     constructor() {
@@ -16,17 +16,7 @@ export default class Client {
         this.clientView = null;
         this.loginView = null;
         this.headerView = null;
-        this.d = Discussion.create(null);
-        this.createDiscussion();
-    }
-
-    sendMessage(msg) {
-        console.log(msg);
-        this.d.sendMessage(msg);
-    }
-
-    createDiscussion() {
-        let d = Discussion.create(null);
+        this.discussionManager = new DiscussionManager();
     }
 
     appendTo({client, login, header}) {
@@ -35,7 +25,11 @@ export default class Client {
         this.$header = header;
 
         const clientView = React.createElement(ClientView, {
-            onMessageSendRequest: this.sendMessage.bind(this),
+            getDiscussion: (userID) => {
+                console.log(userID);
+                const discussion = this.discussionManager.getDiscussion(userID);
+                this.clientView.displayDiscussion(discussion);
+            }
         });
 
         const loginView = React.createElement(ClientViewLogin, {

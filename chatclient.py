@@ -40,7 +40,7 @@ class User(db.Model):
         return {
             "id": self.id,
             "username": self.username,
-            "friends": [u.to_friend_dict() for u in User.query.all()],
+            "friends": [u.to_friend_dict() for u in User.query.all() if u.id != self.id],
         }
 
 @app.route("/")

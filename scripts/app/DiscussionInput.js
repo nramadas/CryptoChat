@@ -17,62 +17,68 @@ export default React.createClass({
 
     getInitialState() {
         const {mixins, colors, borders} = StyleLibrary;
+        const leftMargin = "30px";
 
         let styles = {
             container: {
                 ...mixins.fullBox(),
                 "background-color": "white",
-                "padding-right": "130px",
+                "padding-left": leftMargin,
             },
 
-            input: {
-                ...mixins.inputStyling(),
-                "height": "40px",
+            terminal: {
+                ...mixins.fullVert(),
+                ...mixins.centeredText({height: 45}),
+                "left": "0",
+                "width": leftMargin,
+                "color": colors.baseOrange,
+                "font-size": "28px",
+            },
+
+            textarea: {
+                ...mixins.fullBox(),
+                ...mixins.noOutline(),
+                "display": "block",
                 "width": "100%",
-                "margin-top": "15px",
-                "margin-left": "15px",
-                "border": borders.lightOrangeBorder,
-                "font-size": "18px",
-                "font-family": "lato",
-            },
+                "left": leftMargin,
+                "overflow": "auto",
+                "padding": "15px 15px 15px 0",
+                "font-size": "16px",
+                "line-height": "18px",
+                "font-family": "inconsolata",
+                "color": colors.baseBlueGrey,
+            }
 
-            button: {
-                "position": "absolute",
-                "top": "15px",
-                "right": "15px",
-                "height": "40px",
-                "width": "85px",
-            },
         };
 
         return {styles}
     },
 
     onSubmit() {
-        let msg = React.findDOMNode(this.refs.input).value || "";
+        let input = React.findDOMNode(this.refs.input);
+        let msg = input.value || "";
         this.props.onMessageSendRequest(msg);
+        input.value = "";
     },
 
     onKeyPress(event) {
-        if (event.key == "Enter") {
+        if (event.key == "Enter" && !event.shiftKey) {
+            event.preventDefault();
             this.onSubmit();
         }
     },
 
     render() {
-        const {container, input, button} = this.state.styles;
+        const {container, terminal, textarea} = this.state.styles;
 
         return (
             <div style={container}>
-                <input style={input}
-                       type="text"
-                       name="msg"
-                       ref="input"
-                       onKeyPress={this.onKeyPress} />
-                <div style={button}>
-                    <SubmitButton buttonText="Submit"
-                                  onSubmit={this.onSubmit} />
+                <div style={terminal} >
+                    >
                 </div>
+                <textarea style={textarea}
+                          ref="input"
+                          onKeyPress={this.onKeyPress} />
             </div>
         )
     },

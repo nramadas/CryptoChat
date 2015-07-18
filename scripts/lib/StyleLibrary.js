@@ -9,6 +9,15 @@ let colors = {
     darkBlueGrey: "#263238",
     red: "#f44336",
     veryLightRed: "#ffebee",
+
+    // baseOrange: "#00E5DB",
+    // lightOrange: "#ffe0b2",
+    // veryLightOrange: "#fff8e1",
+    // baseBlueGrey: "#3A4242",
+    // lightBlueGrey: "#B0BEC5",
+    // darkBlueGrey: "#263238",
+    // red: "#f44336",
+    // veryLightRed: "#ffebee",
 };
 
 let borders = {
@@ -173,6 +182,16 @@ let mixins = {
             "overflow": "hidden",
             "white-space": "nowrap",
             "text-overflow": "ellipsis",
+        }
+    },
+
+    noOutline() {
+        return {
+            "border": "none",
+            "outline": "none",
+            "-webkit-box-shadow": "none",
+            "-moz-box-shadow": "none",
+            "box-shadow": "none",
         }
     }
 };

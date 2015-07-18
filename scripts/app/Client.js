@@ -52,7 +52,8 @@ export default class Client {
         console.log(user);
 
         try {
-            const username = await user.username;
+            const userID = await user.id;
+            this.discussionManager.register(userID);
             this.headerView.handleLogin(user);
             this.clientView.handleLogin(user);
             this.$client.style.opacity = 1;

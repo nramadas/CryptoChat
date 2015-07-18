@@ -1,7 +1,7 @@
 import sqlite3
 
 from flask import Flask, render_template, request, jsonify
-from flask.ext.socketio import SocketIO, send, emit
+from flask.ext.socketio import SocketIO, send, emit, join_room, leave_room
 from flask.ext.sqlalchemy import SQLAlchemy
 from contextlib import closing
 
@@ -96,10 +96,19 @@ def user():
 
 @socketio.on("chat", namespace='/chat')
 def handle_chat(json):
-    print("recetived json:" + str(json))
+    emit("incomingMessage", json, broadcast=True, room=json["friendID"])
+
+@socketio.on("register", namespace="/chat")
+def register(user_id):
+    join_room(user_id)
+
+@socketio.on("hangup", namespace="/chat")
+def hangup(user_id):
+    leave_room(user_id)
 
 @socketio.on('connect', namespace='/chat')
 def test_connect():
+    print "Client Connected"
     emit('my response', {'data': 'Connected'})
 
 @socketio.on('disconnect', namespace='/chat')
